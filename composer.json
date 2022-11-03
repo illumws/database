@@ -1,0 +1,39 @@
+{
+  "name": "illum/database",
+  "description": "gerenciador de banco dados baseado no opis/database e opis/orm para orm ",
+  "minimum-stability": "stable",
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "aless",
+      "email": "email@example.com"
+    }
+  ],
+  "scripts": {
+    "test": "./vendor/bin/pest"
+  },
+  "autoload": {
+    "psr-4": {
+      "Illum\\Database\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Illum\\Database\\Test\\": "tests"
+    },
+    "files": ["tests/bootstrap.php"]
+  },
+  "require": {
+    "ext-pdo": "*",
+    "illuminate/collections": "^8.83"
+  },
+  "require-dev": {
+    "pestphp/pest": "^1.22",
+    "symfony/yaml": "v5.*"
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  }
+}
