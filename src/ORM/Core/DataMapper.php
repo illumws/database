@@ -549,7 +549,7 @@ class DataMapper implements IDataMapper
     /**
      * Hydrate
      */
-    protected function hydrate()
+    public function hydrate()
     {
         if (!$this->stale) {
             return;
