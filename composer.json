@@ -25,7 +25,8 @@
   },
   "require": {
     "ext-pdo": "*",
-    "illuminate/collections": "^8.83"
+    "illuminate/collections": "^8.83",
+    "illuminate/container": "^8.83"
   },
   "require-dev": {
     "pestphp/pest": "^1.22",

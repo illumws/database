@@ -40,7 +40,7 @@ trait SelectTrait
      * @param   string|array|Closure $columns
      *
      */
-    public function select($columns = [])
+    public function select($columns = []): self
     {
         $expr = new ColumnExpression($this->getSQLStatement());
 
@@ -52,6 +52,8 @@ trait SelectTrait
             }
             $expr->columns($columns);
         }
+
+        return $this;
     }
 
     /**

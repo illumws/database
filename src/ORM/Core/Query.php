@@ -27,9 +27,7 @@ use Illum\Database\ORM\Traits\{
 
 class Query extends BaseStatement
 {
-    use SelectTrait {
-        select as protected;
-    }
+    use SelectTrait;
     use SoftDeletesTrait;
     use LoaderTrait;
 

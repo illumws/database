@@ -19,11 +19,26 @@
 namespace Illum\Database\ORM;
 
 use Illum\Database\ORM\Core\{DataMapper, EntityMapper, EntityQuery};
+use Illum\Database\SQL\Delete;
+use Illum\Database\SQL\Select;
+use Illum\Database\SQL\Update;
+use Illum\Database\SQL\Where;
+use Illum\Database\SQL\WhereStatement;
+use Illuminate\Container\Container;
 use Illuminate\Support\Collection;
 use Illum\Database\Connection;
 
 /**
  * @method static static|null get(array $columns = [])
+ * @method static Where|Delete|Select|Update where($column, bool $isExpr = false)
+ * @method static Where|Delete|Select|Update andWhere($column, bool $isExpr = false)
+ * @method static Where|Delete|Select|Update orWhere($column, bool $isExpr = false)
+ * @method static WhereStatement|Where|Delete|Select|Update whereExists(\Closure $select)
+ * @method static WhereStatement|Where|Delete|Select|Update andWhereExists(\Closure $select)
+ * @method static WhereStatement|Where|Delete|Select|Update orWhereExists(\Closure $select)
+ * @method static WhereStatement|Where|Delete|Select|Update whereNotExists(\Closure $select)
+ * @method static WhereStatement|Where|Delete|Select|Update andWhereNotExists(\Closure $select)
+ * @method static WhereStatement|Where|Delete|Select|Update orWhereNotExists(\Closure $select)
  * @method static static|null filter($names)
  * @method static Collection all(array $columns = [])
  * @method static int delete(bool $force = false, array $tables = [])
@@ -120,6 +135,10 @@ abstract class Entity implements \JsonSerializable
      */
     public static function getConnection(): ?Connection
     {
+        if (is_null(self::$connection)){
+            self::setConnection(Container::getInstance()->make(Connection::class));
+            return self::$connection;
+        }
         return self::$connection;
     }
 
@@ -181,7 +200,11 @@ abstract class Entity implements \JsonSerializable
 
     public function __invoke($column)
     {
-        return $this->column($column);
+        $args = func_get_args();
+        if (isset($args[1])){
+            return $this->orm()->setColumn($column, $args[1]);
+        }
+        return $this->orm()->getColumn($column);
     }
 
     public function __get($column)
