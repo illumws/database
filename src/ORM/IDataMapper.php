@@ -120,4 +120,6 @@ interface IDataMapper
      * Force hydration
      */
     public function stale();
+
+    public function hydrate();
 }
